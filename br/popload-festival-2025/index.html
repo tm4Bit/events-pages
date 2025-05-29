@@ -154,7 +154,7 @@
         // const tokenInput = document.querySelector(
         //   'input[name="cf-turnstile-response"]',
         // );
-        const token = tokenInput ? tokenInput.value : "secret"; // remove secret after configure cf-turnstile
+        // const token = tokenInput ? tokenInput.value : "secret"; // remove secret after configure cf-turnstile
 
         if (!key) {
           alert("Digite a chave de acesso.");
@@ -162,12 +162,12 @@
           return;
         }
 
-        if (!token) {
-          alert(
-            "Validação de segurança não concluída. Aguarde o carregamento do desafio e tente novamente.",
-          );
-          return;
-        }
+        // if (!token) {
+        //   alert(
+        //     "Validação de segurança não concluída. Aguarde o carregamento do desafio e tente novamente.",
+        //   );
+        //   return;
+        // }
 
         $("#loader").show();
         $("#loader").hide();
