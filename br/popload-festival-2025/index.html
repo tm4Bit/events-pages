@@ -171,6 +171,9 @@
 
         $("#loader").show();
         $("#loader").hide();
+        localStorage.setItem("pswd", key);
+        localStorage.setItem("briefing_id", "1");
+        localStorage.setItem("briefing_key", "user1");
         window.location.href = "form.html";
 
         // $.post(
