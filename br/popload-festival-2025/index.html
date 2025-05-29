@@ -20,11 +20,11 @@
     <link rel="stylesheet" href="../../css/normalize.css" />
     <link rel="stylesheet" href="../../css/aos.css" />
     <link rel="stylesheet" href="../../css/tw9.css?v=1.241" />
-    <!-- <script -->
-    <!--   src="https://challenges.cloudflare.com/turnstile/v0/api.js" -->
-    <!--   async -->
-    <!--   defer -->
-    <!-- ></script> -->
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
     <script src="../../js/lib/jquery.min.js"></script>
     <script src="../../js/lib/aos.js"></script>
     <script src="../../js/lib/jquery.mask.min.js"></script>
@@ -58,10 +58,10 @@
               required
             />
             <input type="hidden" id="briefing_id_hidden" value="1" />
-            <!-- <div -->
-            <!--   class="cf-turnstile" -->
-            <!--   data-sitekey="0x4AAAAAAAVV1LJz4NeNlPue" -->
-            <!-- ></div> -->
+            <div
+              class="cf-turnstile"
+              data-sitekey="0x4AAAAAABfGK-pvtutDfRT9"
+            ></div>
             <input
               type="button"
               value="ok"
@@ -151,10 +151,10 @@
       function checkPswd() {
         const key = document.getElementById("pswd").value.trim();
         const id = document.getElementById("briefing_id_hidden").value;
-        // const tokenInput = document.querySelector(
-        //   'input[name="cf-turnstile-response"]',
-        // );
-        // const token = tokenInput ? tokenInput.value : "secret"; // remove secret after configure cf-turnstile
+        const tokenInput = document.querySelector(
+          'input[name="cf-turnstile-response"]',
+        );
+        const token = tokenInput ? tokenInput.value : "";
 
         if (!key) {
           alert("Digite a chave de acesso.");
@@ -162,12 +162,12 @@
           return;
         }
 
-        // if (!token) {
-        //   alert(
-        //     "Validação de segurança não concluída. Aguarde o carregamento do desafio e tente novamente.",
-        //   );
-        //   return;
-        // }
+        if (!token) {
+          alert(
+            "Validação de segurança não concluída. Aguarde o carregamento do desafio e tente novamente.",
+          );
+          return;
+        }
 
         $("#loader").show();
         $("#loader").hide();
