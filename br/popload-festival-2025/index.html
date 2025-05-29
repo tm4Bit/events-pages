@@ -1,0 +1,206 @@
+<!doctype html>
+<html class="no-js" lang="pt">
+  <head>
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZSW3JEYM3T"></script> -->
+    <!-- <script> -->
+    <!--   window.dataLayer = window.dataLayer || []; -->
+    <!--   function gtag(){dataLayer.push(arguments);} -->
+    <!--   gtag('js', new Date()); -->
+    <!--   gtag('config', 'G-ZSW3JEYM3T'); -->
+    <!-- </script> -->
+
+    <meta charset="UTF-8" />
+    <title>Brasil Popload Festival - GM lead show</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0"
+    />
+    <link rel="shortcut icon" href="../../favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../css/normalize.css" />
+    <link rel="stylesheet" href="../../css/aos.css" />
+    <link rel="stylesheet" href="../../css/tw9.css?v=1.241" />
+    <!-- <script -->
+    <!--   src="https://challenges.cloudflare.com/turnstile/v0/api.js" -->
+    <!--   async -->
+    <!--   defer -->
+    <!-- ></script> -->
+    <script src="../../jquery.min.js"></script>
+    <script src="../../aos.js"></script>
+    <script src="../../jquery.mask.min.js"></script>
+  </head>
+  <body>
+    <div id="loader" style="display: none">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+      <div align="center">
+        <h4 class="br">Por favor,<br />aguarde o processamento</h4>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <img src="bg_desk.webp" class="u-max-full-width" />
+    </div>
+
+    <div class="container" style="padding: 60px 20px 20px 20px">
+      <div class="row">
+        <div class="twelve columns" align="center" id="tit">
+          <form data-aos="fade-down">
+            <label for="pswd">Digite sua chave de acesso:</label>
+            <input
+              type="text"
+              id="pswd"
+              class="u-full-width"
+              value=""
+              style="background-color: #fff; color: #000"
+              required
+            />
+            <input type="hidden" id="briefing_id_hidden" value="1" />
+            <!-- <div -->
+            <!--   class="cf-turnstile" -->
+            <!--   data-sitekey="0x4AAAAAAAVV1LJz4NeNlPue" -->
+            <!-- ></div> -->
+            <input
+              type="button"
+              value="ok"
+              onclick="checkPswd();"
+              style="background-color: #91093e"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid pe" style="background-color: #c0cec2">
+      <div class="container">
+        <div class="row">
+          <div class="eight columns">
+            <img class="logope" src="../../img/juntos-na-direcao.webp" />
+          </div>
+          <div class="four columns links">
+            <h5><a href="regulamento.pdf" target="_blank">REGULAMENTO</a></h5>
+            <h5>
+              <a
+                href="https://www.chevrolet.com.br/ajuda/politica-de-privacidade"
+                target="_blank"
+                >POLÍTICA DE PRIVACIDADE</a
+              >
+            </h5>
+          </div>
+        </div>
+        <div class="row" align="center">
+          <hr style="margin: 20px 0 40px 0; border-color: #fff" />
+          <p>
+            Copyright © Chevrolet &nbsp; &nbsp; | &nbsp; &nbsp; por
+            <a href="//ovlk.com.br" target="_blank">Overlock</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      AOS.init({ easing: "ease-out-back", duration: 850 });
+    </script>
+    <a href="javascript:" id="return-to-top"><i class="arrow"></i></a>
+    <script>
+      $(window).scroll(function () {
+        if ($(this).scrollTop() >= 50) {
+          $("#return-to-top").fadeIn(200);
+        } else {
+          $("#return-to-top").fadeOut(200);
+        }
+      });
+      $("#return-to-top").click(function () {
+        $("body,html").animate({ scrollTop: 0 }, 500);
+      });
+    </script>
+    <script
+      type="text/javascript"
+      src="https://www.termsfeed.com/public/cookie-consent/4.0.0/cookie-consent.js"
+      charset="UTF-8"
+    ></script>
+    <script type="text/javascript" charset="UTF-8">
+      document.addEventListener("DOMContentLoaded", function () {
+        cookieconsent.run({
+          notice_banner_type: "simple",
+          consent_type: "implied",
+          palette: "dark",
+          language: "pt",
+          page_load_consent_levels: [
+            "strictly-necessary",
+            "functionality",
+            "tracking",
+            "targeting",
+          ],
+          notice_banner_reject_button_hide: false,
+          preferences_center_close_button_hide: false,
+          page_refresh_confirmation_buttons: false,
+          website_name: "Pesquisa de Satisfação Chevrolet",
+        });
+      });
+    </script>
+    <noscript
+      >ePrivacy and GPDR Cookie Consent by
+      <a href="https://www.TermsFeed.com/" rel="nofollow"
+        >TermsFeed Generator</a
+      ></noscript
+    >
+
+    <script>
+      function checkPswd() {
+        const key = document.getElementById("pswd").value.trim();
+        const id = document.getElementById("briefing_id_hidden").value;
+        // const tokenInput = document.querySelector(
+        //   'input[name="cf-turnstile-response"]',
+        // );
+        const token = tokenInput ? tokenInput.value : "secret"; // remove secret after configure cf-turnstile
+
+        if (!key) {
+          alert("Digite a chave de acesso.");
+          document.getElementById("pswd").focus();
+          return;
+        }
+
+        if (!token) {
+          alert(
+            "Validação de segurança não concluída. Aguarde o carregamento do desafio e tente novamente.",
+          );
+          return;
+        }
+
+        $("#loader").show();
+        $("#loader").hide();
+        window.location.href = "form.html";
+
+        // $.post(
+        //   "https://leadshowgm.ovlk.com.br/bk/verifica-chave.php",
+        //   {
+        //     key: key,
+        //     id: id,
+        //     "cf-turnstile-response": token,
+        //   },
+        //   function (response) {
+        //     $("#loader").hide();
+        //     try {
+        //       const res = JSON.parse(response);
+        //       if (res.success) {
+        //         localStorage.setItem("pswd", key);
+        //         localStorage.setItem("briefing_id", res.id);
+        //         localStorage.setItem("briefing_key", res.key);
+        //         window.location.href = "form.html";
+        //       } else {
+        //         alert(res.message || "Chave inválida");
+        //         document.getElementById("pswd").value = "";
+        //         document.getElementById("pswd").focus();
+        //       }
+        //     } catch (e) {
+        //       alert("Erro ao processar a resposta do servidor.");
+        //     }
+        //   },
+        // );
+      }
+    </script>
+  </body>
+</html>
+

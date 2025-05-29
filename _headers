@@ -1,0 +1,9 @@
+/*
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Referrer-Policy: no-referrer
+
+Access-Control-Allow-Origin: https://leadshowgm.ovlk.com.br
+Access-Control-Allow-Origin: https://challenges.cloudflare.com
+
+  
