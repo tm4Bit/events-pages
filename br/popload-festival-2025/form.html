@@ -333,92 +333,47 @@
           $(".data").mask("00/00/0000");
 
           // Form submission handler
-          $("#form").submit(async function (e) {
-            console.log("FORM SUBMIT TRIGGERED");
+          $("#form").submit(function (e) {
             e.preventDefault();
 
-            const formData = $(this).serializeArray();
-            const leadData = {};
-            formData.forEach((item) => {
-              // Handle multiple checkboxes with the same name (e.g., tipo_conteudo)
-              if (leadData[item.name]) {
-                if (!Array.isArray(leadData[item.name])) {
-                  leadData[item.name] = [leadData[item.name]];
+            $("#loader").show();
+
+            const formArray = $(this).serializeArray();
+            const formDataObject = {};
+
+            $.each(formArray, function (i, field) {
+              let fieldName = field.name;
+              let fieldValue = field.value;
+
+              // Verifica se o campo já existe no objeto (para campos com múltiplos valores, como checkboxes de um grupo SET)
+              // Se o backend espera um array de valores para campos SET, esta lógica agrupará os valores.
+              if (formDataObject[fieldName] !== undefined) {
+                if (!Array.isArray(formDataObject[fieldName])) {
+                  formDataObject[fieldName] = [formDataObject[fieldName]];
                 }
-                leadData[item.name].push(item.value);
+                formDataObject[fieldName].push(fieldValue);
               } else {
-                leadData[item.name] = item.value;
+                formDataObject[fieldName] = fieldValue;
               }
             });
 
-            // Convert array values to comma-separated strings if your API expects that
-            for (const key in leadData) {
-              if (Array.isArray(leadData[key])) {
-                leadData[key] = leadData[key].join(",");
-              }
-            }
+            console.log("Payload dinâmico a ser enviado:", formDataObject);
 
-            const obrigadoModal = document.getElementById("obrigado");
-            const loader = $("#loader");
-
-            if (navigator.onLine) {
-              console.log("Online: Making AJAX request to:", config.formAction);
-              console.log("Form data:", $(this).serialize());
-              loader.show();
-
-              $.ajax({
-                type: "POST",
-                url: config.formAction,
-                data: $(this).serialize(), // jQuery's serialize() is fine for x-www-form-urlencoded
-              })
-                .done(function (response) {
-                  console.log("AJAX SUCCESS", response);
-                  loader.hide();
-                  if (obrigadoModal) window.location.href = "#obrigado";
-                  $("#form")[0].reset(); // Clear the form
-                  if (window.turnstile) window.turnstile.reset(); // Reset Cloudflare Turnstile if used
-                })
-                .fail(function (xhr, textStatus, errorThrown) {
-                  console.log("AJAX FAIL", xhr, textStatus, errorThrown);
-                  loader.hide();
-                  if (window.turnstile) window.turnstile.reset(); // Reset Cloudflare Turnstile
-                  try {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.errors) {
-                      alert(response.errors.join("\n"));
-                    } else {
-                      alert(
-                        "Não foi possível realizar o cadastro. Tente mais tarde",
-                      );
-                    }
-                  } catch (parseError) {
-                    alert(
-                      "Erro de conexão ou ao processar a resposta. Tente novamente.",
-                    );
-                  }
-                });
-            } else {
-              console.log("Offline: Saving lead to IndexedDB.");
-              loader.show();
-              try {
-                await saveLeadOffline(leadData);
-                loader.hide();
-                alert(
-                  "Você está offline. Seu cadastro foi salvo e será enviado quando houver conexão.",
-                );
-                // Don't show #obrigado immediately for offline, it will show after successful sync.
-                // Or, you can show a different message/modal for offline saves.
-                // For now, just alert and reset form.
-                $("#form")[0].reset(); // Clear the form
-                if (window.turnstile) window.turnstile.reset(); // Reset Cloudflare Turnstile
-              } catch (offlineError) {
-                loader.hide();
-                console.error("Failed to save lead offline:", offlineError);
-                alert(
-                  "Não foi possível salvar o cadastro offline. Tente novamente.",
-                );
-              }
-            }
+            $.ajax({
+              type: "POST",
+              url: config.formAction,
+              contentType: "application/json",
+              data: JSON.stringify(formDataObject),
+              success: function (response) {
+                console.log("ajax success", response);
+                $("#loader").hide();
+                window.location.href = "#obrigado";
+              },
+              error: function (xhr) {
+                console.log("[tma]Error: ", xhr);
+                $("#loader").hide();
+              },
+            });
           });
 
           // Analytics tracking for data-rotulo elements
